@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+    <h1>お店一覧</h1>
+    <p>以前住んでいた頃に行ったことのあるお店を思い出してみました。</p>
+    <table class='table table-striped table-hover'>
+        <tr>
+            <th style="width: 120px">カテゴリ</th><th style="width: 230px">店名</th><th style="width: 350px">住所</th><th>MEMO</th>
+        </tr>
+        {% for shop in object_list %}
+        <tr>
+            <td>{{ shop.category.name }}</td>
+            <td><a href='{% url "lunchmap:detail" shop.pk %}'>{{ shop.name }}</a></td>
+            <td>{{ shop.address }}</td>
+            <td>{{ shop.memo }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>※かなり昔の情報なので間違っているかもしれません。</p>
+
+
+    {% if user.is_authenticated %}
+        <div>
+            <a href='{% url "lunchmap:create" %}'>新しいお店</a>
+        </div>
+    {% endif %}
+
+{% endblock %}
